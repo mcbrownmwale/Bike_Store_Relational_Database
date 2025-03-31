@@ -1,6 +1,7 @@
 #***** Create a Database and populate it with csv tables *****#
 # Import Libraries
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import pandas as pd
 import numpy as np
 
@@ -8,7 +9,9 @@ import numpy as np
 db_url = "dbname=chinook user=postgres port=5432 host=localhost password=022027"  
 
 conn = psycopg2.connect(db_url)
+conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cursor = conn.cursor()
+
 # Create a new database in our server "bike_store"
 query = "CREATE DATABASE bike_store"
 cursor.execute(query)
