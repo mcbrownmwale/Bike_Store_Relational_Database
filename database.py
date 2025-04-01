@@ -60,14 +60,14 @@ def insert_data(db_url, table_name, query, values):
 
 # Creat a Database in the PosgreSQL Server  
 ## Assign the database credential to a string "db_url"
-db_url = "dbname=chinook user=postgres port=5435 host=localhost password=022027"  
+db_url = "dbname=chinook user=postgres port=5435 host=localhost"  
 
 ## Create a new database in our server "bike_store" - use a function defined above
 create_database(db_url, "bike_store")
 
 # Create tables in the new database
 ## Create a connection to the newly created database
-db_url = "dbname=bike_store user=postgres port=5432 host=localhost password=022027"
+db_url = "dbname=bike_store user=postgres port=5435 host=localhost"
 conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
@@ -189,3 +189,69 @@ cursor.execute(stores)
 ## Commit Changes and Close connection
 conn.commit()
 conn.close()
+
+# Insert values into tables
+## Insert brands.csv into brands table in the database
+brands_csv = "data/brands.csv"
+brands_values = get_lists(brands_csv)
+query = "INSERT INTO brands VALUES(%s, %s)"
+
+insert_data(db_url, "brands", query, brands_values)
+
+## Insert categories.csv into categories table in the database
+categories_csv = "data/categories.csv"
+categories_values = get_lists(categories_csv)
+query = "INSERT INTO categories VALUES(%s, %s)"
+
+insert_data(db_url, "categories", query, categories_values)
+
+## Insert customers.csv into customers table in the database
+customers_csv = "data/customers.csv"
+customers_values = get_lists(customers_csv)
+query = "INSERT INTO customers VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "customers", query, customers_values)
+
+## Insert order.csv into orders table in the database
+orders_csv = "data/orders.csv"
+orders_values = get_lists(orders_csv)
+query = "INSERT INTO orders VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "orders", query, orders_values)
+
+## Insert staffs.csv into staffs table in the database
+staffs_csv = "data/staffs.csv"
+staffs_values = get_lists(staffs_csv)
+query = "INSERT INTO staffs VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "staffs", query, staffs_values)
+
+## Insert stores.csv into stores table in the database
+stores_csv = "data/stores.csv"
+stores_values = get_lists(stores_csv)
+query = "INSERT INTO stores VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "stores", query, stores_values)
+
+## Insert order_items.csv into order_items table in the database
+order_items_csv = "data/order_items.csv"
+order_items_values = get_lists(order_items_csv)
+query = "INSERT INTO order_items VALUES(%s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "order_items", query, order_items_values)
+
+## Insert products.csv into products table in the database
+products_csv = "data/products.csv"
+products_values = get_lists(products_csv)
+query = "INSERT INTO products VALUES(%s, %s, %s, %s, %s, %s)"
+
+insert_data(db_url, "products", query, products_values)
+
+## Insert stocks.csv into stocks table in the database
+stocks_csv = "data/stocks.csv"
+stocks_values = get_lists(stocks_csv)
+query = "INSERT INTO stocks VALUES(%s, %s, %s)"
+
+insert_data(db_url, "stocks", query, stocks_values)
+
+################################################################
