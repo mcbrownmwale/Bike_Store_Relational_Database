@@ -86,9 +86,9 @@ orders = '''
           order_id integer PRIMARY KEY,
           customer_id integer NOT NULL,
           order_status integer NOT NULL,
-          order_date date NOT NULL,
-          required_date date NOT NULL,
-          shipped_date date,
+          order_date varchar(20) NOT NULL,
+          required_date varchar(20) NOT NULL,
+          shipped_date varchar(20),
           store_id integer NOT NULL,
           staff_id integer NOT NULL
           );
