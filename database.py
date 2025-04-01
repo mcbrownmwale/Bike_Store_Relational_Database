@@ -60,14 +60,14 @@ def insert_data(db_url, table_name, query, values):
 
 # Creat a Database in the PosgreSQL Server  
 ## Assign the database credential to a string "db_url"
-db_url = "dbname=chinook user=postgres port=5435 host=localhost"  
+db_url = "dbname=chinook user=postgres port=5432 host=localhost password=022027"  
 
 ## Create a new database in our server "bike_store" - use a function defined above
 create_database(db_url, "bike_store")
 
 # Create tables in the new database
 ## Create a connection to the newly created database
-db_url = "dbname=bike_store user=postgres port=5435 host=localhost"
+db_url = "dbname=bike_store user=postgres port=5432 host=localhost password=022027"
 conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
@@ -75,7 +75,7 @@ cursor = conn.cursor()
 category = '''
             CREATE TABLE IF NOT EXISTS categories(
             category_id integer PRIMARY KEY,
-            category_name varchar(50) UNIQUE NOT NULL
+            category_name varchar(20) UNIQUE NOT NULL
             );
            '''
 cursor.execute(category)
@@ -99,7 +99,7 @@ cursor.execute(orders)
 brands = '''
           CREATE TABLE IF NOT EXISTS brands(
           brand_id integer PRIMARY KEY,
-          brand_name varchar(50) UNIQUE NOT NULL
+          brand_name varchar(15) UNIQUE NOT NULL
           );
          '''
 cursor.execute(brands)
@@ -108,13 +108,13 @@ cursor.execute(brands)
 customers = '''
             CREATE TABLE IF NOT EXISTS customers(
             customer_id integer PRIMARY KEY,
-            first_name varchar(50) NOT NULL,
-            last_name varchar(50) NOT NULL,
-            phone varchar(50),
-            email varchar(50) NOT NULL,
+            first_name varchar(15) NOT NULL,
+            last_name varchar(15) NOT NULL,
+            phone varchar(15),
+            email varchar(40) NOT NULL,
             street varchar(30) UNIQUE NOT NULL,
-            city varchar(50) NOT NULL,
-            state varchar(50) NOT NULL,
+            city varchar(25) NOT NULL,
+            state varchar(2) NOT NULL,
             zip_code integer NOT NULL
             );
             '''
@@ -137,11 +137,11 @@ cursor.execute(order_items)
 products = '''
             CREATE TABLE IF NOT EXISTS products(
             product_id integer PRIMARY KEY,
-            product_name varchar(50) NOT NULL,
+            product_name varchar(60) NOT NULL,
             brand_id integer NOT NULL,
             category_id integer NOT NULL,
             model_year integer NOT NULL,
-            list_year integer NOT NULL
+            list_year numeric NOT NULL
             );
            '''
 cursor.execute(products)
@@ -150,13 +150,13 @@ cursor.execute(products)
 staffs = '''
           CREATE TABLE IF NOT EXISTS staffs(
           staff_id integer PRIMARY KEY,
-          first_name varchar(50) UNIQUE NOT NULL,
-          last_name varchar(50) UNIQUE NOT NULL,
-          email varchar(50) UNIQUE NOT NULL,
-          phone varchar(50) UNIQUE NOT NULL,
+          first_name varchar(10) UNIQUE NOT NULL,
+          last_name varchar(10) UNIQUE NOT NULL,
+          email varchar(30) UNIQUE NOT NULL,
+          phone varchar(15) UNIQUE NOT NULL,
           active boolean NOT NULL,
           store_id integer NOT NULL,
-          manager_id integer
+          manager_id varchar(10)
           );
           '''
 cursor.execute(staffs)
@@ -175,12 +175,12 @@ cursor.execute(stocks)
 stores = '''
           CREATE TABLE IF NOT EXISTS stores(
           store_id integer PRIMARY KEY,
-          store_name varchar(50) UNIQUE NOT NULL,
-          phone varchar(50) UNIQUE NOT NULL,
-          email varchar(100) UNIQUE NOT NULL,
-          street varchar(50) UNIQUE NOT NULL,
-          city varchar(50) UNIQUE NOT NULL,
-          state varchar(10) UNIQUE NOT NULL,
+          store_name varchar(20) UNIQUE NOT NULL,
+          phone varchar(15) UNIQUE NOT NULL,
+          email varchar(20) UNIQUE NOT NULL,
+          street varchar(20) UNIQUE NOT NULL,
+          city varchar(10) UNIQUE NOT NULL,
+          state varchar(2) UNIQUE NOT NULL,
           zip_code integer UNIQUE NOT NULL
           );
          '''
