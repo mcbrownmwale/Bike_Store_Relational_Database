@@ -5,6 +5,7 @@ import psycopg2
 import pandas as pd
 import numpy as np
 import csv
+import os
 
 # Define functions
 ## Define a function for Creating a Database in a Server
@@ -50,7 +51,7 @@ def insert_data(db_url, table_name, query, values):
     """ Insert data into the table """
     try:
         cursor.executemany(query, values)
-        print("Insert Successful")
+        print(f"Inserting data in {table_name} table is Successful!\n")
     except Exception as e:
         print(f"Insert Unsuccessful with {e}.")
 
@@ -60,14 +61,16 @@ def insert_data(db_url, table_name, query, values):
 
 # Create a Database in the Postgresql Server
 ## Assign the database credential to a string "db_url"
-db_url = "dbname=chinook user=postgres port=5432 host=localhost password=022027"  
+password = os.environ.get('PASSWORD')
+username = os.environ.get('USERNAME')
+db_url = f"dbname=chinook user={username} port=5432 host=localhost password={password}"  
 
 ## Create a new database in our server "bike_store" - use a function defined above
 create_database(db_url, "bike_store")
 
 # Create tables in the new database
 ## Create a connection to the newly created database
-db_url = "dbname=bike_store user=postgres port=5432 host=localhost password=022027"
+db_url = f"dbname=bike_store user={username} port=5432 host=localhost password={password}"
 conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
